@@ -1,0 +1,24 @@
+reset_waterpurifier_pp_10inch:
+  name: 重置净水机PP棉
+  icon: mdi:filter-outline
+
+reset_waterpurifier_udf:
+  name: 重置UDF活性炭
+  icon: mdi:filter-variant
+
+reset_waterpurifier_cto:
+  name: 重置CTO压缩炭
+  icon: mdi:filter
+
+reset_waterpurifier_ro:
+  name: 重置RO膜
+  icon: mdi:water-opacity
+
+reset_waterpurifier_t33:
+  name: 重置T33后置炭
+  icon: mdi:filter-menu
+
+reset_waterpurifier_pp_20inch:
+  name: 重置入户PP棉
+  icon: mdi:pipe-wrench
+

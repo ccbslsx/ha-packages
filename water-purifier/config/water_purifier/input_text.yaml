@@ -1,0 +1,28 @@
+##净水系统滤芯更换历史记录
+history_pp_20inch:
+  name: 入户20寸PP棉更换历史
+  icon: mdi:filter-outline
+
+history_pp_10inch:
+  name: PP棉更换历史
+  icon: mdi:filter-outline
+
+history_udf:
+  name: UDF活性炭更换历史
+  icon: mdi:chemical-weapon
+
+history_cto:
+  name: CTO活性炭更换历史
+  icon: mdi:chemical-weapon
+
+history_ro:
+  name: RO膜更换历史
+  icon: mdi:water-opacity
+
+history_t33:
+  name: 后置T33活性炭更换历史
+  icon: mdi:filter-variant
+
+history_water_purifier:
+  name: 整机更换/维护记录
+  icon: mdi:water-check

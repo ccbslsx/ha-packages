@@ -1,0 +1,226 @@
+- alias: "WaterPurifier: 提醒净水机PP棉更换"
+  trigger:
+    - platform: state
+      entity_id: sensor.status_pp_10inch
+      to:
+        - "警告"
+        - "更换"
+      for: "00:10:00"
+  action:
+    - service: notify.gotify
+      data:
+        title: "⚠️ 净水机PP棉需更换！"
+        message: "## 🛠 滤芯更换提醒\n
+        \n检测到 **净水机PP棉** 需要更换！\n
+        \n### 📊 当前状态\n
+        | 项目         | 数值       |\n
+        |--------------|------------|\n
+        | 已用制水量   | {{ states('sensor.waterpurifier_pp_10inch_used') | round(2)}} L |\n
+        | 已使用时间   | {{ states('sensor.days_used_pp_10inch') }} |\n
+        \n请尽快更换滤芯，确保净水效果。\n
+        \n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 提醒UDF活性炭更换"
+  trigger:
+    - platform: state
+      entity_id: sensor.status_udf
+      to:
+        - "警告"
+        - "更换"
+      for: "00:10:00"
+  action:
+    - service: notify.gotify
+      data:
+        title: "⚠️ UDF活性炭需更换！"
+        message: "## 🛠 滤芯更换提醒\n
+        \n检测到 **UDF活性炭** 需要更换！\n
+        \n### 📊 当前状态\n| 项目         | 数值       |\n
+        |--------------|------------|\n
+        | 已用制水量   | {{ states('sensor.waterpurifier_udf_used') | round(2)}} L |\n
+        | 已使用时间   | {{ states('sensor.days_used_udf') }} |\n
+        \n活性炭失效可能影响口感和有机物去除效果。\n
+        \n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+  
+- alias: "WaterPurifier: 提醒CTO压缩炭更换"
+  trigger:
+    - platform: state
+      entity_id: sensor.status_cto
+      to:
+        - "警告"
+        - "更换"
+      for: "00:10:00"
+  action:
+    - service: notify.gotify
+      data:
+        title: "⚠️ CTO压缩炭需更换！"
+        message: "## 🛠 滤芯更换提醒\n
+        \n检测到 **CTO压缩炭** 需要更换！\n
+        \n### 📊 当前状态\n
+        | 项目         | 数值       |\n
+        |--------------|------------|\n
+        | 已用制水量   | {{ states('sensor.waterpurifier_cto_used') | round(2)}} L |\n
+        | 已使用时间   | {{ states('sensor.days_used_cto') }} |\n
+        \n活性炭失效可能影响口感和有机物去除效果。\n
+        \n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 提醒RO膜更换"
+  trigger:
+    - platform: state
+      entity_id: sensor.status_ro
+      to:
+        - "警告"
+        - "更换"
+      for: "00:10:00"
+  action:
+    - service: notify.gotify
+      data:
+        title: "🔴 RO膜需更换！"
+        message: "## 🛠 滤芯更换提醒\n\n检测到 **RO膜** 需要更换！\n
+        \n### 📊 当前状态\n| 项目         | 数值       |\n
+        |--------------|------------|\n
+        | 已用制水量   | {{ states('sensor.waterpurifier_ro_used') | round(2)}} L |\n
+        | 脱盐率       | {{ states('sensor.ro_salt_rejection') }} % |\n
+        | 已使用时间   | {{ states('sensor.days_used_ro') }} |\n
+        \nRO膜老化将严重影响净水效果，请尽快安排更换。\n
+        \n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 提醒T33后置炭更换"
+  trigger:
+    - platform: state
+      entity_id: sensor.status_t33
+      to:
+        - "警告"
+        - "更换"
+      for: "00:10:00"
+  action:
+    - service: notify.gotify
+      data:
+        title: "⚠️ T33后置炭需更换！"
+        message: "## 🛠 滤芯更换提醒\n
+        \n检测到 **T33后置炭** 需要更换！\n
+        \n### 📊 当前状态\n
+        | 项目         | 数值       |\n
+        |--------------|------------|\n
+        | 已用制水量   | {{ states('sensor.waterpurifier_t33_used') | round(2)}} L |\n
+        | 已使用时间   | {{ states('sensor.days_used_t33') }} |\n
+        \n后置炭影响口感，建议及时更换以提升饮水体验。\n
+        \n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 提醒入户20寸PP棉更换"
+  trigger:
+    - platform: state
+      entity_id: sensor.status_pp_20inch
+      to:
+        - "警告"
+        - "更换"
+      for: "00:10:00"
+  action:
+    - service: notify.gotify
+      data:
+        title: "⚠️ 入户20寸PP棉需更换！"
+        message: "## 🛠 滤芯更换提醒\n
+        \n检测到 **入户20寸PP棉** 需要更换！\n
+        \n### 📊 当前状态\n| 项目         | 数值       |\n
+        |--------------|------------|\n
+        | 已使用时间   | {{ states('sensor.days_used_pp_20inch') }} |\n
+        \n作为前置保护，建议尽快更换以保护后续设备。\n
+        \n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+  
+- alias: 每天早晚推送净水机状态报告
+  triggers:
+  - trigger: time
+    at: 09:00:00
+  - trigger: time
+    at: '22:00:00'
+  action:
+    - service: notify.gotify
+      data:
+        title: "\U0001F6B0净水器数据报告"
+        message: "## \U0001F9EA 水质监测\n
+        | 指标        | 纯水值 | 原水值 | RO脱盐率 |\n
+        |-------------|--------|--------|--------|\n
+        |TDS (ppm)   | {{ states('sensor.tds_esp8266_tds1') }} | {{ states('sensor.tds_esp8266_tds2') }} | {{ states('sensor.ro_salt_rejection') }}  |\n
+        \n## \U0001F4C8 累计总量\n
+        | 项目                | 数值  |\n
+        |---------------------|-------|\n
+        |纯水累计用量 (L)    | {{ states('input_number.esp_purified_accum') | round(2)}} |\n
+        | 原水累计用量 (L)    | {{ states('sensor.tds_esp8266_total_water_usage') | round(2)}} |\n
+        \n## \U0001F4CA 今日用量\n
+        | 项目                | 数值  |\n
+        |---------------------|-------|\n
+        |纯水今日用量 (L)    | {{ states('sensor.tds_esp8266_today_s_purified_water_usage') | round(2)}} |\n
+        |原水今日用量 (L)    | {{ states('sensor.tds_esp8266_today_s_water_usage') | round(2)}} |\n"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 滤芯到期巡检（兜底）"
+  mode: single
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time_pattern
+      hours: "/6"
+  action:
+    - variables:
+        filters:
+          - { key: "PP棉(10寸)",    status: "sensor.status_pp_10inch", used: "sensor.waterpurifier_pp_10inch_used", days: "sensor.days_used_pp_10inch" }
+          - { key: "UDF活性炭",      status: "sensor.status_udf",        used: "sensor.waterpurifier_udf_used",        days: "sensor.days_used_udf" }
+          - { key: "CTO压缩炭",      status: "sensor.status_cto",        used: "sensor.waterpurifier_cto_used",        days: "sensor.days_used_cto" }
+          - { key: "RO膜",           status: "sensor.status_ro",         used: "sensor.waterpurifier_ro_used",         days: "sensor.days_used_ro" }
+          - { key: "T33后置炭",      status: "sensor.status_t33",        used: "sensor.waterpurifier_t33_used",        days: "sensor.days_used_t33" }
+          - { key: "入户20寸PP棉",   status: "sensor.status_pp_20inch",  used: "sensor.waterpurifier_pp_20inch_used",  days: "sensor.days_used_pp_20inch" }
+    - repeat:
+        for_each: "{{ filters }}"
+        sequence:
+          - condition: template
+            value_template: "{{ states(repeat.item.status) in ['警告', '更换'] }}"
+          - service: notify.gotify
+            data:
+              title: "⚠️ 【巡检】{{ repeat.item.key }}需关注（{{ states(repeat.item.status) }}）"
+              message: >
+                ## 🛠 滤芯到期巡检
+                检测到 **{{ repeat.item.key }}** 当前状态：**{{ states(repeat.item.status) }}**
+
+                | 项目 | 数值 |
+                |---|---|
+                | 已用 | {{ states(repeat.item.used) }} |
+                | 已用天数 | {{ states(repeat.item.days) }} |
+
+                *推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*
+              data:
+                extras:
+                  client::display:
+                    contentType: text/markdown

@@ -1,0 +1,20 @@
+# HA 侧遗留备份（不同步）
+*.bak_*
+.bak_*
+
+# 敏感文件
+secrets.yaml
+*.token
+.env
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+__pycache__/
+*.pyc
+
+# 临时产物
+wp_src/
+*.tar.gz
+/tmp/

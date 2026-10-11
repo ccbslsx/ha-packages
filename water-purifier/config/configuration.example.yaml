@@ -1,0 +1,47 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+# Automations I create in the UI
+automation ui: !include automations.yaml
+automation manual: !include_dir_merge_list automations/
+script: !include scripts.yaml
+scene: !include scenes.yaml
+###-------------------------------------------------------------------------------------------###
+###sgcc电力查询
+
+###-------------------------------------------------------------------------------------------###
+
+#开启Prometheus监控支持
+prometheus:
+  namespace: hass
+notify:
+  ###gotify通知系统
+  - name: "gotify"
+    platform: gotify
+    url: http://YOUR_HOST:PORT/
+    token: YOUR_GOTIFY_APP_TOKEN
+    verify_ssl: true # optional, default true
+    ####企业微信通知系统
+  - name: "wecom_bot"
+    platform: rest
+    resource: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=YOUR_WEBHOOK_KEY"
+    method: POST
+    content_type: application/json
+    data_template:
+      msgtype: "text"
+      text:
+        content: "{{ message }}"
+# ========== 净水系统监控 ==========
+input_number: !include water_purifier/input_number.yaml
+input_button: !include water_purifier/input_button.yaml
+input_datetime: !include water_purifier/input_datetime.yaml
+input_text: !include water_purifier/input_text.yaml
+template:
+  - sensor: !include water_purifier/sensors.yaml
+# =================================
+
+supervisor_panel:
+

@@ -1,0 +1,339 @@
+{
+  "type": "sections",
+  "max_columns": 4,
+  "title": "净水机",
+  "path": "waterpurifier",
+  "sections": [
+    {
+      "type": "grid",
+      "cards": [
+        {
+          "type": "heading",
+          "heading_style": "title"
+        },
+        {
+          "type": "vertical-stack",
+          "cards": [
+            {
+              "type": "glance",
+              "title": "💧 水质与脱盐率",
+              "entities": [
+                {
+                  "entity": "sensor.tds_esp8266_tds1",
+                  "name": "纯水TDS"
+                },
+                {
+                  "entity": "sensor.tds_esp8266_tds2",
+                  "name": "原水TDS"
+                },
+                {
+                  "entity": "sensor.ro_salt_rejection",
+                  "name": "RO脱盐率",
+                  "icon": "mdi:water-percent"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "title": "⏳ 滤芯使用时间",
+          "show_header_toggle": false,
+          "entities": [
+            {
+              "entity": "sensor.days_used_pp_10inch",
+              "name": "PP棉",
+              "icon": "mdi:calendar-clock"
+            },
+            {
+              "entity": "sensor.days_used_udf",
+              "name": "UDF活性炭",
+              "icon": "mdi:calendar-clock"
+            },
+            {
+              "entity": "sensor.days_used_cto",
+              "name": "CTO压缩炭",
+              "icon": "mdi:calendar-clock"
+            },
+            {
+              "entity": "sensor.days_used_ro",
+              "name": "RO膜",
+              "icon": "mdi:calendar-clock"
+            },
+            {
+              "entity": "sensor.days_used_t33",
+              "name": "T33后置炭",
+              "icon": "mdi:calendar-clock"
+            },
+            {
+              "entity": "sensor.days_used_pp_20inch",
+              "name": "入户20寸PP棉",
+              "icon": "mdi:calendar-clock"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "title": "🕒 滤芯剩余时间",
+          "show_header_toggle": false,
+          "entities": [
+            {
+              "entity": "sensor.time_remaining_pp_10inch",
+              "name": "PP棉",
+              "icon": "mdi:timer"
+            },
+            {
+              "entity": "sensor.time_remaining_udf",
+              "name": "UDF活性炭",
+              "icon": "mdi:timer"
+            },
+            {
+              "entity": "sensor.time_remaining_cto",
+              "name": "CTO压缩炭",
+              "icon": "mdi:timer"
+            },
+            {
+              "entity": "sensor.time_remaining_ro",
+              "name": "RO膜",
+              "icon": "mdi:timer"
+            },
+            {
+              "entity": "sensor.time_remaining_t33",
+              "name": "T33后置炭",
+              "icon": "mdi:timer"
+            },
+            {
+              "entity": "sensor.time_remaining_pp_20inch",
+              "name": "入户20寸PP棉",
+              "icon": "mdi:timer"
+            }
+          ]
+        }
+      ],
+      "column_span": 1
+    },
+    {
+      "type": "grid",
+      "cards": [
+        {
+          "type": "heading",
+          "heading_style": "title"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "sensor.tds_esp8266_total_water_usage",
+              "name": "净水机累计进水量"
+            },
+            {
+              "entity": "input_number.esp_purified_accum",
+              "name": "净水机累计制水量"
+            }
+          ],
+          "title": "水量统计"
+        },
+        {
+          "type": "vertical-stack",
+          "cards": [
+            {
+              "type": "custom:stack-in-card",
+              "mode": "horizontal",
+              "style": ":host {\n  background: #f3f4f6;\n  padding: 8px;\n  border-radius: 12px;\n  box-shadow: 0 1px 3px rgba(0,0,0,0.1);\n}\n",
+              "cards": [
+                {
+                  "type": "glance",
+                  "style": ":host {\n  background: white;\n  padding: 8px;\n  border-radius: 8px;\n  margin: 4px;\n}\n",
+                  "title": "净水端制水量",
+                  "show_name": true,
+                  "show_state": true,
+                  "columns": 2,
+                  "entities": [
+                    {
+                      "entity": "sensor.waterpurifier_pp_10inch_used",
+                      "name": "PP棉",
+                      "icon": "mdi:filter"
+                    },
+                    {
+                      "entity": "sensor.waterpurifier_udf_used",
+                      "name": "UDF",
+                      "icon": "mdi:filter-variant"
+                    },
+                    {
+                      "entity": "sensor.waterpurifier_cto_used",
+                      "name": "CTO",
+                      "icon": "mdi:filter"
+                    },
+                    {
+                      "entity": "sensor.waterpurifier_ro_used",
+                      "name": "RO膜",
+                      "icon": "mdi:water-opacity"
+                    },
+                    {
+                      "entity": "sensor.waterpurifier_t33_used",
+                      "name": "T33",
+                      "icon": "mdi:filter"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "vertical-stack",
+          "cards": [
+            {
+              "type": "glance",
+              "style": ":host {\n  background: #f3e5f5;\n  padding: 12px;\n  border-radius: 12px;\n  box-shadow: 0 2px 4px rgba(0,0,0,0.1);\n}\n",
+              "title": "滤芯状态汇总",
+              "columns": 3,
+              "entities": [
+                {
+                  "entity": "sensor.status_pp_10inch",
+                  "name": "PP棉",
+                  "icon": "mdi:filter"
+                },
+                {
+                  "entity": "sensor.status_udf",
+                  "name": "UDF",
+                  "icon": "mdi:filter-variant"
+                },
+                {
+                  "entity": "sensor.status_cto",
+                  "name": "CTO",
+                  "icon": "mdi:filter"
+                },
+                {
+                  "entity": "sensor.status_ro",
+                  "name": "RO膜",
+                  "icon": "mdi:water-opacity"
+                },
+                {
+                  "entity": "sensor.status_t33",
+                  "name": "T33",
+                  "icon": "mdi:filter"
+                },
+                {
+                  "entity": "sensor.status_pp_20inch",
+                  "name": "入户PP",
+                  "icon": "mdi:water-pump"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "grid",
+      "cards": [
+        {
+          "type": "heading",
+          "heading_style": "title"
+        },
+        {
+          "type": "entities",
+          "title": "🔧 滤芯管理系统",
+          "show_header_toggle": false,
+          "entities": [
+            {
+              "type": "divider"
+            },
+            {
+              "type": "section",
+              "label": "💧 净水端滤芯管理"
+            },
+            {
+              "entity": "sensor.waterpurifier_pp_10inch_used",
+              "name": "PP棉 - 已用制水量"
+            },
+            {
+              "entity": "input_datetime.waterpurifier_change_time_pp_10inch",
+              "name": "PP棉 - 上次更换时间"
+            },
+            {
+              "entity": "input_button.reset_waterpurifier_pp_10inch",
+              "name": "重置PP棉（记录更换）"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "entity": "sensor.waterpurifier_udf_used",
+              "name": "UDF活性炭 - 已用制水量"
+            },
+            {
+              "entity": "input_datetime.waterpurifier_change_time_udf",
+              "name": "UDF活性炭 - 上次更换时间"
+            },
+            {
+              "entity": "input_button.reset_waterpurifier_udf",
+              "name": "重置UDF活性炭（记录更换）"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "entity": "sensor.waterpurifier_cto_used",
+              "name": "CTO压缩炭 - 已用制水量"
+            },
+            {
+              "entity": "input_datetime.waterpurifier_change_time_cto",
+              "name": "CTO压缩炭 - 上次更换时间"
+            },
+            {
+              "entity": "input_button.reset_waterpurifier_cto",
+              "name": "重置CTO压缩炭（记录更换）"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "entity": "sensor.waterpurifier_ro_used",
+              "name": "RO膜 - 已用制水量"
+            },
+            {
+              "entity": "input_datetime.waterpurifier_change_time_ro",
+              "name": "RO膜 - 上次更换时间"
+            },
+            {
+              "entity": "input_button.reset_waterpurifier_ro",
+              "name": "重置RO膜（记录更换）"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "entity": "sensor.waterpurifier_t33_used",
+              "name": "T33后置炭 - 已用制水量"
+            },
+            {
+              "entity": "input_datetime.waterpurifier_change_time_t33",
+              "name": "T33后置炭 - 上次更换时间"
+            },
+            {
+              "entity": "input_button.reset_waterpurifier_t33",
+              "name": "重置T33后置炭（记录更换）"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "type": "section",
+              "label": "🏠 前置过滤管理"
+            },
+            {
+              "entity": "input_datetime.waterpurifier_change_time_pp_20inch",
+              "name": "入户20寸PP棉 - 上次更换时间"
+            },
+            {
+              "entity": "input_button.reset_waterpurifier_pp_20inch",
+              "name": "记录前置PP棉更换"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

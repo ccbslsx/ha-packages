@@ -1,0 +1,29 @@
+type: entities
+title: 净水系统监控
+entities:
+  - entity: sensor.ro_salt_rejection
+  - entity: sensor.status_pp_10inch
+  - entity: sensor.waterpurifier_pp_10inch_used
+  - entity: sensor.days_used_pp_10inch
+  - entity: sensor.status_udf
+  - entity: sensor.waterpurifier_udf_used
+  - entity: sensor.days_used_udf
+  - entity: sensor.status_cto
+  - entity: sensor.waterpurifier_cto_used
+  - entity: sensor.days_used_cto
+  - entity: sensor.status_ro
+  - entity: sensor.waterpurifier_ro_used
+  - entity: sensor.days_used_ro
+  - entity: sensor.status_t33
+  - entity: sensor.waterpurifier_t33_used
+  - entity: sensor.days_used_t33
+  - entity: sensor.status_pp_20inch
+  - entity: sensor.waterpurifier_pp_20inch_used
+  - entity: sensor.days_used_pp_20inch
+  - type: divider
+  - entity: input_button.reset_waterpurifier_pp_10inch
+  - entity: input_button.reset_waterpurifier_udf
+  - entity: input_button.reset_waterpurifier_cto
+  - entity: input_button.reset_waterpurifier_ro
+  - entity: input_button.reset_waterpurifier_t33
+  - entity: input_button.reset_waterpurifier_pp_20inch

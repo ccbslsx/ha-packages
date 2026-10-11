@@ -1,0 +1,490 @@
+# RO脱盐率传感器
+- name: "ro_salt_rejection"
+  unique_id: ro_salt_rejection
+  unit_of_measurement: "%"
+  icon: "mdi:water-percent"
+  state: >
+    {% set raw = states('sensor.tds_esp8266_tds2') | float(0) %}
+    {% set pure = states('sensor.tds_esp8266_tds1') | float(0) %}
+    {% if raw > 0 %}
+      {{ ((raw - pure) / raw * 100) | round(1) }}
+    {% else %}
+      0
+    {% endif %}
+
+# 净水机PP棉已用制水量
+- name: "waterpurifier_pp_10inch_used"
+  unique_id: waterpurifier_pp_10inch_used
+  unit_of_measurement: "L"
+  icon: "mdi:water-circle"
+  state: >
+    {{ (states('input_number.esp_purified_accum') | float(0) - states('input_number.waterpurifier_start_pp_10inch') | float(0)) | round(2) }}
+
+# UDF活性炭已用制水量
+- name: "waterpurifier_udf_used"
+  unique_id: waterpurifier_udf_used
+  unit_of_measurement: "L"
+  icon: "mdi:water-circle"
+  state: >
+    {{ (states('input_number.esp_purified_accum') | float(0) - states('input_number.waterpurifier_start_udf') | float(0)) | round(2) }}
+
+# CTO压缩炭已用制水量
+- name: "waterpurifier_cto_used"
+  unique_id: waterpurifier_cto_used
+  unit_of_measurement: "L"
+  icon: "mdi:water-circle"
+  state: >
+    {{ (states('input_number.esp_purified_accum') | float(0) - states('input_number.waterpurifier_start_cto') | float(0)) | round(2) }}
+
+# RO膜已用制水量
+- name: "waterpurifier_ro_used"
+  unique_id: waterpurifier_ro_used
+  unit_of_measurement: "L"
+  icon: "mdi:water-circle"
+  state: >
+    {{ (states('input_number.esp_purified_accum') | float(0) - states('input_number.waterpurifier_start_ro') | float(0)) | round(2) }}
+
+# T33后置炭已用制水量
+- name: "waterpurifier_t33_used"
+  unique_id: waterpurifier_t33_used
+  unit_of_measurement: "L"
+  icon: "mdi:water-circle"
+  state: >
+    {{ (states('input_number.esp_purified_accum') | float(0) - states('input_number.waterpurifier_start_t33') | float(0)) | round(2) }}
+
+# 净水机PP棉使用天数
+- name: "days_used_pp_10inch"
+  unique_id: days_used_pp_10inch
+  icon: "mdi:calendar-clock"
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_pp_10inch', 'date') %}
+    {% if date_str is none %}
+      未设置日期
+    {% else %}
+      {% set dt = strptime(date_str, '%Y-%m-%d %H:%M:%S') %}
+      {% set ts = as_timestamp(dt) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set seconds = now_ts - ts %}
+      {% set days = (seconds / 86400) | int %}
+      {% set hours = ((seconds % 86400) / 3600) | int %}
+      {% if days > 0 and hours > 0 %}
+        {{ days }}天{{ hours }}小时
+      {% elif days > 0 %}
+        {{ days }}天
+      {% else %}
+        {{ hours }}小时
+      {% endif %}
+    {% endif %}
+
+# UDF活性炭使用天数
+- name: "days_used_udf"
+  unique_id: days_used_udf
+  icon: "mdi:calendar-clock"
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_udf') %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set dt = strptime(date_str, '%Y-%m-%d %H:%M:%S') %}
+      {% set ts = as_timestamp(dt) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set seconds = now_ts - ts %}
+      {% set days = (seconds / 86400) | int %}
+      {% set hours = ((seconds % 86400) / 3600) | int %}
+      {% if days > 0 and hours > 0 %}
+        {{ days }}天{{ hours }}小时
+      {% elif days > 0 %}
+        {{ days }}天
+      {% else %}
+        {{ hours }}小时
+      {% endif %}
+    {% endif %}
+
+# CTO压缩炭使用天数
+- name: "days_used_cto"
+  unique_id: days_used_cto
+  icon: "mdi:calendar-clock"
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_cto') %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set dt = strptime(date_str, '%Y-%m-%d %H:%M:%S') %}
+      {% set ts = as_timestamp(dt) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set seconds = now_ts - ts %}
+      {% set days = (seconds / 86400) | int %}
+      {% set hours = ((seconds % 86400) / 3600) | int %}
+      {% if days > 0 and hours > 0 %}
+        {{ days }}天{{ hours }}小时
+      {% elif days > 0 %}
+        {{ days }}天
+      {% else %}
+        {{ hours }}小时
+      {% endif %}
+    {% endif %}
+
+# RO膜使用天数
+- name: "days_used_ro"
+  unique_id: days_used_ro
+  icon: "mdi:calendar-clock"
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_ro') %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set dt = strptime(date_str, '%Y-%m-%d %H:%M:%S') %}
+      {% set ts = as_timestamp(dt) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set seconds = now_ts - ts %}
+      {% set days = (seconds / 86400) | int %}
+      {% set hours = ((seconds % 86400) / 3600) | int %}
+      {% if days > 0 and hours > 0 %}
+        {{ days }}天{{ hours }}小时
+      {% elif days > 0 %}
+        {{ days }}天
+      {% else %}
+        {{ hours }}小时
+      {% endif %}
+    {% endif %}
+
+# T33后置炭使用天数
+- name: "days_used_t33"
+  unique_id: days_used_t33
+  icon: "mdi:calendar-clock"
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_t33') %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set dt = strptime(date_str, '%Y-%m-%d %H:%M:%S') %}
+      {% set ts = as_timestamp(dt) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set seconds = now_ts - ts %}
+      {% set days = (seconds / 86400) | int %}
+      {% set hours = ((seconds % 86400) / 3600) | int %}
+      {% if days > 0 and hours > 0 %}
+        {{ days }}天{{ hours }}小时
+      {% elif days > 0 %}
+        {{ days }}天
+      {% else %}
+        {{ hours }}小时
+      {% endif %}
+    {% endif %}
+
+# 入户20寸PP棉使用天数
+- name: "days_used_pp_20inch"
+  unique_id: days_used_pp_20inch
+  icon: "mdi:calendar-clock"
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_pp_20inch') %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set dt = strptime(date_str, '%Y-%m-%d %H:%M:%S') %}
+      {% set ts = as_timestamp(dt) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set seconds = now_ts - ts %}
+      {% set days = (seconds / 86400) | int %}
+      {% set hours = ((seconds % 86400) / 3600) | int %}
+      {% if days > 0 and hours > 0 %}
+        {{ days }}天{{ hours }}小时
+      {% elif days > 0 %}
+        {{ days }}天
+      {% else %}
+        {{ hours }}小时
+      {% endif %}
+    {% endif %}
+    
+# 净水机滤芯剩余时间（基于 input_datetime + input_number 自定义寿命）
+- name: time_remaining_pp_10inch
+  unique_id: time_remaining_pp_10inch
+  icon: mdi:clock-end
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_pp_10inch') %}
+    {% set total_days = states('input_number.use_date_pp_10inch') | float(default=365) %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set install_ts = as_timestamp(date_str) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set used_days = ((now_ts - install_ts) / 86400) | int %}
+      {% set remaining_days = (total_days - used_days) | int %}
+      {% if remaining_days <= 0 %}
+        已到期
+      {% elif remaining_days < 30 %}
+        {{ remaining_days }}天
+      {% else %}
+        {{ remaining_days }}天
+      {% endif %}
+    {% endif %}
+
+- name: time_remaining_udf
+  unique_id: time_remaining_udf
+  icon: mdi:clock-end
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_udf') %}
+    {% set total_days = states('input_number.use_date_udf') | float(default=365) %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set install_ts = as_timestamp(date_str) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set used_days = ((now_ts - install_ts) / 86400) | int %}
+      {% set remaining_days = (total_days - used_days) | int %}
+      {% if remaining_days <= 0 %}
+        已到期
+      {% elif remaining_days < 30 %}
+        {{ remaining_days }}天
+      {% else %}
+        {{ remaining_days }}天
+      {% endif %}
+    {% endif %}
+
+- name: time_remaining_cto
+  unique_id: time_remaining_cto
+  icon: mdi:clock-end
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_cto') %}
+    {% set total_days = states('input_number.use_date_cto') | float(default=365) %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set install_ts = as_timestamp(date_str) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set used_days = ((now_ts - install_ts) / 86400) | int %}
+      {% set remaining_days = (total_days - used_days) | int %}
+      {% if remaining_days <= 0 %}
+        已到期
+      {% elif remaining_days < 30 %}
+        {{ remaining_days }}天
+      {% else %}
+        {{ remaining_days }}天
+      {% endif %}
+    {% endif %}
+
+- name: time_remaining_ro
+  unique_id: time_remaining_ro
+  icon: mdi:clock-end
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_ro') %}
+    {% set total_days = states('input_number.use_date_ro') | float(default=730) %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set install_ts = as_timestamp(date_str) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set used_days = ((now_ts - install_ts) / 86400) | int %}
+      {% set remaining_days = (total_days - used_days) | int %}
+      {% if remaining_days <= 0 %}
+        已到期
+      {% elif remaining_days < 30 %}
+        {{ remaining_days }}天
+      {% else %}
+        {{ remaining_days }}天
+      {% endif %}
+    {% endif %}
+
+- name: time_remaining_t33
+  unique_id: time_remaining_t33
+  icon: mdi:clock-end
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_t33') %}
+    {% set total_days = states('input_number.use_date_t33') | float(default=365) %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set install_ts = as_timestamp(date_str) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set used_days = ((now_ts - install_ts) / 86400) | int %}
+      {% set remaining_days = (total_days - used_days) | int %}
+      {% if remaining_days <= 0 %}
+        已到期
+      {% elif remaining_days < 30 %}
+        {{ remaining_days }}天
+      {% else %}
+        {{ remaining_days }}天
+      {% endif %}
+    {% endif %}
+
+- name: time_remaining_pp_20inch
+  unique_id: time_remaining_pp_20inch
+  icon: mdi:clock-end
+  state: >
+    {% set date_str = states('input_datetime.waterpurifier_change_time_pp_20inch') %}
+    {% set total_days = states('input_number.use_date_pp_20inch') | float(default=180) %}
+    {% if date_str is none or date_str == 'unknown' %}
+      未设置日期
+    {% else %}
+      {% set install_ts = as_timestamp(date_str) %}
+      {% set now_ts = as_timestamp(now()) %}
+      {% set used_days = ((now_ts - install_ts) / 86400) | int %}
+      {% set remaining_days = (total_days - used_days) | int %}
+      {% if remaining_days <= 0 %}
+        已到期
+      {% elif remaining_days < 30 %}
+        {{ remaining_days }}天
+      {% else %}
+        {{ remaining_days }}天
+      {% endif %}
+    {% endif %}
+
+
+##############滤芯状态#########################################
+# 净水机PP棉状态
+- name: "status_pp_10inch"
+  unique_id: status_pp_10inch
+  icon: "mdi:filter"
+  state: >
+    {% set change_time = states('input_datetime.waterpurifier_change_time_pp_10inch') %}
+    {% if change_time in ['unknown', 'unavailable', none] %}
+      未设置
+    {% else %}
+      {% set dt = strptime(change_time, '%Y-%m-%d %H:%M:%S') %}
+      {% set days = ((as_timestamp(now()) - as_timestamp(dt)) / 86400) | int %}
+      {% if days >= (states('input_number.use_date_pp_10inch') | int(0)) %} 更换
+      {% elif days >= ((states('input_number.use_date_pp_10inch') | int(0)) // 2) %} 警告
+      {% else %} 正常
+      {% endif %}
+    {% endif %}
+- name: "status_udf"
+  unique_id: status_udf
+  icon: "mdi:filter-variant"
+  state: >
+    {% set used_water = states('sensor.waterpurifier_udf_used') | float(0) %}
+    {% set change_time = states('input_datetime.waterpurifier_change_time_udf') %}
+    {% if change_time in ['unknown', 'unavailable', none] %}
+      未设置
+    {% else %}
+      {% set dt = strptime(change_time, '%Y-%m-%d %H:%M:%S') %}
+      {% set days_used = ((as_timestamp(now()) - as_timestamp(dt)) / 86400) | int %}
+    {% endif %}
+    {% if used_water >= 1200 or days_used >= (states('input_number.use_date_udf') | int(0)) %}
+      更换
+    {% elif used_water >= 1000 or days_used >= ((states('input_number.use_date_udf') | int(0)) // 2) %}
+      警告
+    {% else %}
+      正常
+    {% endif %}
+#  attributes:
+#    used_water: "{{ states('sensor.waterpurifier_udf_used') }}"
+#    used_days: >
+#      {% if change_time not in ['unknown', 'unavailable', none] %}
+#        {{ ((as_timestamp(now()) - as_timestamp(strptime(change_time, '%Y-%m-%d %H:%M:%S'))) / 86400) | int }}
+#      {% else %}
+#        未知
+#      {% endif %}
+#    last_change: "{{ change_time }}"
+    
+# CTO压缩炭状态
+- name: "status_cto"
+  unique_id: status_cto
+  icon: "mdi:filter"
+  state: >
+    {% set used_water = states('sensor.waterpurifier_cto_used') | float(0) %}
+    {% set change_time = states('input_datetime.waterpurifier_change_time_cto') %}
+    {% if change_time in ['unknown', 'unavailable', none] %}
+      未设置
+    {% else %}
+      {% set dt = strptime(change_time, '%Y-%m-%d %H:%M:%S') %}
+      {% set days_used = ((as_timestamp(now()) - as_timestamp(dt)) / 86400) | int %}
+    {% endif %}
+    {% if used_water >= 1200 or days_used >= (states('input_number.use_date_cto') | int(0)) %}
+      更换
+    {% elif used_water >= 1000 or days_used >= ((states('input_number.use_date_cto') | int(0)) // 2) %}
+      警告
+    {% else %}
+      正常
+    {% endif %}
+#  attributes:
+#    used_water: "{{ states('sensor.waterpurifier_cto_used') }}"
+#    used_days: >
+#      {% if change_time not in ['unknown', 'unavailable', none] %}
+#        {{ ((as_timestamp(now()) - as_timestamp(strptime(change_time, '%Y-%m-%d %H:%M:%S'))) / 86400) | int }}
+#      {% else %}
+#        未知
+#      {% endif %}
+#    last_change: "{{ change_time }}"
+    
+# RO膜状态
+- name: "status_ro"
+  unique_id: status_ro
+  icon: "mdi:filter"
+  state: >
+    {% set desal = states('sensor.ro_salt_rejection') | float(-1) %}
+    {% set pure_tds = states('sensor.tds_esp8266_tds1') | float(-1) %}
+    {% set change_time = states('input_datetime.waterpurifier_change_time_ro') %}
+    {% if change_time in ['unknown', 'unavailable', none] %}
+      未设置
+    {% else %}
+      {% set dt = strptime(change_time, '%Y-%m-%d %H:%M:%S') %}
+      {% set days = ((as_timestamp(now()) - as_timestamp(dt)) / 86400) | int %}
+      
+      {# 脱盐率越低越差: <90%警告 / <85%更换 ; 纯水TDS越高越差: >15警告 / >25更换 #}
+      {% set warn = (desal >= 0 and desal < 90) or (pure_tds >= 0 and pure_tds > 15) %}
+      {% set repl = (desal >= 0 and desal < 85) or (pure_tds >= 0 and pure_tds > 25) %}
+      {% if repl %} 更换
+      {% elif warn %} 警告
+      {% else %}
+        {% if days >= (states('input_number.use_date_ro') | int(0)) %} 更换
+        {% elif days >= ((states('input_number.use_date_ro') | int(0)) // 2) %} 警告
+        {% else %} 正常
+        {% endif %}
+      {% endif %}
+    {% endif %}
+- name: "status_t33"
+  unique_id: status_t33
+  icon: "mdi:filter"
+  state: >
+    {% set used_water = states('sensor.waterpurifier_t33_used') | float(0) %}
+    {% set change_time = states('input_datetime.waterpurifier_change_time_t33') %}
+    {% if change_time in ['unknown', 'unavailable', none] %}
+      未设置
+    {% else %}
+      {% set dt = strptime(change_time, '%Y-%m-%d %H:%M:%S') %}
+      {% set days_used = ((as_timestamp(now()) - as_timestamp(dt)) / 86400) | int %}
+    {% endif %}
+    {% if used_water >= 1200 or days_used >= (states('input_number.use_date_t33') | int(0)) %}
+      更换
+    {% elif used_water >= 1000 or days_used >= ((states('input_number.use_date_t33') | int(0)) // 2) %}
+      警告
+    {% else %}
+      正常
+    {% endif %}
+#  attributes:
+#    used_water: "{{ states('sensor.waterpurifier_t33_used') }}"
+#    used_days: >
+#      {% if change_time not in ['unknown', 'unavailable', none] %}
+#        {{ ((as_timestamp(now()) - as_timestamp(strptime(change_time, '%Y-%m-%d %H:%M:%S'))) / 86400) | int }}
+#      {% else %}
+#        未知
+#      {% endif %}
+#    last_change: "{{ change_time }}"
+
+# 入户20寸PP棉状态
+- name: "waterpurifier_pp_20inch_used"
+  unique_id: waterpurifier_pp_20inch_used
+  icon: "mdi:water-pump"
+  unit_of_measurement: "L"
+  availability: "{{ has_value('sensor.0021030105848_ben_ci_chao_ma') }}"
+  state: >
+    {% set meter = states('sensor.0021030105848_ben_ci_chao_ma') | float(0) %}
+    {% set base = states('input_number.waterpurifier_start_pp_20inch') | float(0) %}
+    {% set used = (meter - base) * 1000 %}
+    {% if used < 0 %} 0 {% else %} {{ used | round(1) }} {% endif %}
+
+- name: "status_pp_20inch"
+  unique_id: status_pp_20inch
+  icon: "mdi:filter"
+  state: >
+    {% set change_time = states('input_datetime.waterpurifier_change_time_pp_20inch') %}
+    {% if change_time in ['unknown', 'unavailable', none] %}
+      未设置
+    {% else %}
+      {% set dt = strptime(change_time, '%Y-%m-%d %H:%M:%S') %}
+      {% set days = ((as_timestamp(now()) - as_timestamp(dt)) / 86400) | int %}
+      {% if days >= (states('input_number.use_date_pp_20inch') | int(0)) %} 更换
+      {% elif days >= ((states('input_number.use_date_pp_20inch') | int(0)) - 35) %} 警告
+      {% else %} 正常
+      {% endif %}
+    {% endif %}

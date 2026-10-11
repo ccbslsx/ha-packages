@@ -1,0 +1,30 @@
+# 滤芯更换时间记录
+waterpurifier_change_time_pp_10inch:
+  has_date: true
+  has_time: true
+  name: PP棉更换时间
+
+waterpurifier_change_time_udf:
+  has_date: true
+  has_time: true
+  name: UDF活性炭更换时间
+
+waterpurifier_change_time_cto:
+  has_date: true
+  has_time: true
+  name: CTO压缩炭更换时间
+
+waterpurifier_change_time_ro:
+  has_date: true
+  has_time: true
+  name: RO膜更换时间
+
+waterpurifier_change_time_t33:
+  has_date: true
+  has_time: true
+  name: T33后置炭更换时间
+
+waterpurifier_change_time_pp_20inch:
+  has_date: true
+  has_time: true
+  name: 入户20寸PP棉更换时间

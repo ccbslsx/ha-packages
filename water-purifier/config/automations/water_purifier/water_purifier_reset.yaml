@@ -1,0 +1,201 @@
+# 20250919：取消to:"pressed"的动作，实际上home assistant在触发input_button时，该实体是无状态的，例如，它不能具有像普通开关实体所具有的 或 状态这样的状态。
+# 每个输入按钮实体都会跟踪上次的时间戳 输入按钮实体已在 Home Assistant UI 中按下或通过 服务调用。
+# automation.yaml 片段：带历史记录更新
+
+- alias: "WaterPurifier: 重置PP棉并记录时间"
+  trigger:
+    - platform: state
+      entity_id: input_button.reset_waterpurifier_pp_10inch
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.waterpurifier_start_pp_10inch
+        value: "{{ states('input_number.esp_purified_accum') | float(0) }}"
+    - service: input_datetime.set_datetime
+      data:
+        entity_id: input_datetime.waterpurifier_change_time_pp_10inch
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.history_pp_10inch
+        value: >
+          {% set old = states('input_text.history_pp_10inch') %}
+          {% if old not in ['unknown', 'unavailable', none] and old.strip() %}
+            {{ old }}, {{ now().strftime('%Y-%m-%d') }}
+          {% else %}
+            {{ now().strftime('%Y-%m-%d') }}
+          {% endif %}
+    - service: notify.gotify
+      data:
+        title: "✅ 净水机PP棉已重置"
+        message: "## 🔁 净水机PP棉滤芯已重置\n\n已成功重置 **净水机PP棉** 的起始数据。\n\n### 📊 当前记录\n| 项目         | 数值       |\n|--------------|------------|\n| 起始制水量   | {{ states('input_number.esp_purified_accum') }} L |\n| 安装日期   | {{ now().strftime('%Y-%m-%d') }} |\n\n后续将重新计算使用量和寿命提醒。\n\n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 重置UDF并记录时间"
+  trigger:
+    - platform: state
+      entity_id: input_button.reset_waterpurifier_udf
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.waterpurifier_start_udf
+        value: "{{ states('input_number.esp_purified_accum') | float(0) }}"
+    - service: input_datetime.set_datetime
+      data:
+        entity_id: input_datetime.waterpurifier_change_time_udf
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.history_udf
+        value: >
+          {% set old = states('input_text.history_udf') %}
+          {% if old not in ['unknown', 'unavailable', none] and old.strip() %}
+            {{ old }}, {{ now().strftime('%Y-%m-%d') }}
+          {% else %}
+            {{ now().strftime('%Y-%m-%d') }}
+          {% endif %}
+    - service: notify.gotify
+      data:
+        title: "✅ 净水机UDF滤芯重置"
+        message: "## 🔁 UDF滤芯已重置\n\n已成功重置 **净水机UDF滤芯** 的起始数据。\n\n### 📊 当前记录\n| 项目         | 数值       |\n|--------------|------------|\n| 起始制水量   | {{ states('input_number.esp_purified_accum') }} L |\n| 安装日期   | {{ now().strftime('%Y-%m-%d') }} |\n\n后续将重新计算使用量和寿命提醒。\n\n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 重置CTO并记录时间"
+  trigger:
+    - platform: state
+      entity_id: input_button.reset_waterpurifier_cto
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.waterpurifier_start_cto
+        value: "{{ states('input_number.esp_purified_accum') | float(0) }}"
+    - service: input_datetime.set_datetime
+      data:
+        entity_id: input_datetime.waterpurifier_change_time_cto
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.history_cto
+        value: >
+          {% set old = states('input_text.history_cto') %}
+          {% if old not in ['unknown', 'unavailable', none] and old.strip() %}
+            {{ old }}, {{ now().strftime('%Y-%m-%d') }}
+          {% else %}
+            {{ now().strftime('%Y-%m-%d') }}
+          {% endif %}
+    - service: notify.gotify
+      data:
+        title: "✅ 净水机CTO滤芯重置"
+        message: "## 🔁 CTO滤芯已重置\n\n已成功重置 **净水机CTO滤芯** 的起始数据。\n\n### 📊 当前记录\n| 项目         | 数值       |\n|--------------|------------|\n| 起始制水量   | {{ states('input_number.esp_purified_accum') }} L |\n| 安装日期   | {{ now().strftime('%Y-%m-%d') }} |\n\n后续将重新计算使用量和寿命提醒。\n\n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 重置RO滤芯并记录时间"
+  trigger:
+    - platform: state
+      entity_id: input_button.reset_waterpurifier_ro
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.waterpurifier_start_ro
+        value: "{{ states('input_number.esp_purified_accum') | float(0) }}"
+    - service: input_datetime.set_datetime
+      data:
+        entity_id: input_datetime.waterpurifier_change_time_ro
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.history_ro
+        value: >
+          {% set old = states('input_text.history_ro') %}
+          {% if old not in ['unknown', 'unavailable', none] and old.strip() %}
+            {{ old }}, {{ now().strftime('%Y-%m-%d') }}
+          {% else %}
+            {{ now().strftime('%Y-%m-%d') }}
+          {% endif %}
+    - service: notify.gotify
+      data:
+        title: "✅ 净水机RO滤芯重置"
+        message: "## 🔁 RO滤芯已重置\n\n已成功重置 **净水机RO滤芯** 的起始数据。\n\n### 📊 当前记录\n| 项目         | 数值       |\n|--------------|------------|\n| 起始制水量   | {{ states('input_number.esp_purified_accum') }} L |\n| 安装日期   | {{ now().strftime('%Y-%m-%d') }} |\n\n后续将重新计算使用量和寿命提醒。\n\n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 重置T33滤芯并记录时间"
+  trigger:
+    - platform: state
+      entity_id: input_button.reset_waterpurifier_t33
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.waterpurifier_start_t33
+        value: "{{ states('input_number.esp_purified_accum') | float(0) }}"
+    - service: input_datetime.set_datetime
+      data:
+        entity_id: input_datetime.waterpurifier_change_time_t33
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.history_t33
+        value: >
+          {% set old = states('input_text.history_t33') %}
+          {% if old not in ['unknown', 'unavailable', none] and old.strip() %}
+            {{ old }}, {{ now().strftime('%Y-%m-%d') }}
+          {% else %}
+            {{ now().strftime('%Y-%m-%d') }}
+          {% endif %}
+    - service: notify.gotify
+      data:
+        title: "✅ 净水机T33滤芯重置"
+        message: "## 🔁 T33滤芯已重置\n\n已成功重置 **净水机T33滤芯** 的起始数据。\n\n### 📊 当前记录\n| 项目         | 数值       |\n|--------------|------------|\n| 起始制水量   | {{ states('input_number.esp_purified_accum') }} L |\n| 安装日期   | {{ now().strftime('%Y-%m-%d') }} |\n\n后续将重新计算使用量和寿命提醒。\n\n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single
+
+- alias: "WaterPurifier: 重置入户PP棉并记录时间"
+  trigger:
+    - platform: state
+      entity_id: input_button.reset_waterpurifier_pp_20inch
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.waterpurifier_start_pp_20inch
+        value: "{{ states('sensor.0021030105848_ben_ci_chao_ma') | float(0) }}"
+    - service: input_datetime.set_datetime
+      data:
+        entity_id: input_datetime.waterpurifier_change_time_pp_20inch
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.history_pp_20inch
+        value: >
+          {% set old = states('input_text.history_pp_20inch') %}
+          {% if old not in ['unknown', 'unavailable', none] and old.strip() %}
+            {{ old }}, {{ now().strftime('%Y-%m-%d') }}
+          {% else %}
+            {{ now().strftime('%Y-%m-%d') }}
+          {% endif %}
+    - service: notify.gotify
+      data:
+        title: "✅ 入户PP棉已重置"
+        message: "## 🔁 入户PP棉滤芯已重置\n\n已成功重置 **入户PP棉** 的起始数据。\n\n### 📊 当前记录\n| 项目         | 数值       |\n|--------------|------------|\n| 起始进水量(抄码) | {{ states('sensor.0021030105848_ben_ci_chao_ma') }} m3 |\n| 安装日期   | {{ now().strftime('%Y-%m-%d') }} |\n\n后续将重新计算使用量和寿命提醒。\n\n*推送时间：{{ now().strftime('%Y-%m-%d %H:%M') }}*"
+        data:
+          extras:
+            client::display:
+              contentType: text/markdown
+  mode: single

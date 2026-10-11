@@ -1,0 +1,125 @@
+# 滤芯更换时记录的“起始总净水量”或“总进水量”
+waterpurifier_start_pp_10inch:
+  name: 净水机PP棉起始水量
+  min: 0
+  max: 999999
+  step: 0.1
+  mode: box
+  unit_of_measurement: L
+
+waterpurifier_start_udf:
+  name: UDF活性炭起始水量
+  min: 0
+  max: 999999
+  step: 0.1
+  mode: box
+  unit_of_measurement: L
+
+waterpurifier_start_cto:
+  name: CTO压缩炭起始水量
+  min: 0
+  max: 999999
+  step: 0.1
+  mode: box
+  unit_of_measurement: L
+
+waterpurifier_start_ro:
+  name: RO膜起始水量
+  min: 0
+  max: 999999
+  step: 0.1
+  mode: box
+  unit_of_measurement: L
+
+waterpurifier_start_t33:
+  name: T33后置炭起始水量
+  min: 0
+  max: 999999
+  step: 0.1
+  mode: box
+  unit_of_measurement: L
+  
+waterpurifier_start_pp_20inch:
+  name: 入户20寸PP棉起始进水量(抄码m3)
+  min: 0
+  max: 999999
+  step: 0.001
+  mode: box
+  unit_of_measurement: m3
+
+#滤芯使用寿命
+use_date_pp_10inch:
+  name: PP棉使用寿命
+  icon: "mdi:calendar-sync"
+  unit_of_measurement: 天
+  min: 1
+  max: 2000
+  step: 1
+  mode: box
+  initial: 1095
+
+use_date_udf:
+  name: UDF活性炭使用寿命
+  icon: "mdi:calendar-sync"
+  unit_of_measurement: 天
+  min: 1
+  max: 2000
+  step: 1
+  mode: box
+  initial: 1095
+
+use_date_cto:
+  name: CTO压缩炭使用寿命
+  icon: "mdi:calendar-sync"
+  unit_of_measurement: 天
+  min: 1
+  max: 2000
+  step: 1
+  mode: box
+  initial: 1095
+
+use_date_ro:
+  name: RO膜使用寿命
+  icon: "mdi:calendar-sync"
+  unit_of_measurement: 天
+  min: 1
+  max: 2000
+  step: 1
+  mode: box
+  initial: 1460
+
+use_date_t33:
+  name: T33后置炭使用寿命
+  icon: "mdi:calendar-sync"
+  unit_of_measurement: 天
+  min: 1
+  max: 2000
+  step: 1
+  mode: box
+  initial: 1095
+
+use_date_pp_20inch:
+  name: 入户PP棉使用寿命
+  icon: "mdi:calendar-sync"
+  unit_of_measurement: 天
+  min: 1
+  max: 730
+  step: 1
+  mode: box
+  initial: 365
+# ESP8266 纯水累计（HA侧累加，防设备断电归零丢数）
+esp_purified_accum:
+  name: ESP纯水累计(HA侧)
+  min: 0
+  max: 9999999
+  step: 0.001
+  mode: box
+  unit_of_measurement: L
+
+esp_purified_last:
+  name: ESP纯水原始读数(上次)
+  min: 0
+  max: 9999999
+  step: 0.001
+  mode: box
+  unit_of_measurement: L
