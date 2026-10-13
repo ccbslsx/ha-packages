@@ -127,8 +127,8 @@
               "name": "净水机累计进水量"
             },
             {
-              "entity": "input_number.esp_purified_accum",
-              "name": "净水机累计制水量"
+              "type": "markdown",
+              "content": "**净水机累计制水量（HA侧）**：{{ states(\"input_number.esp_purified_accum\") | float(0) | round(1) }} L\n\n*ESP8266 断电归零由 HA 单调累计器补偿，只读展示*"
             }
           ],
           "title": "水量统计"
